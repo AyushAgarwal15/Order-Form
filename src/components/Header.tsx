@@ -7,14 +7,14 @@ function Header({ isHamburgerClicked, handleMenu }: headerProps) {
     <header className="bg-black w-full flex justify-between items-center mt-0 p-7 ">
       {isHamburgerClicked ? (
         <img
-          src="/public/icons-png/close-menu.png"
+          src="/icons-png/close-menu.png"
           alt="menu-icon"
           className="hover:cursor-pointer"
           onClick={() => handleMenu()}
         />
       ) : (
         <img
-          src="/public/icons-png/open-menu.png"
+          src="/icons-png/open-menu.png"
           alt="menu-icon"
           className="w-10 hover:cursor-pointer"
           onClick={() => handleMenu()}
