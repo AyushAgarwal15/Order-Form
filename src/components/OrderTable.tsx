@@ -61,7 +61,6 @@ function OrderTable({ orderId, data, handleDeleteOrder }: OrderTableProps) {
         await axios.post("http://localhost:3000/totalPrice", {
           totalPrice: totalPrice,
         });
-        // All orders were successfully submitted
         alert("Orders submitted successfully!");
       } else {
         alert("Failed to submit one or more orders.");
