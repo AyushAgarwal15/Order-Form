@@ -1,0 +1,97 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productName": "Canon SLR Camera (Black)",
+      "productDetails": {
+        "brand": "Canon",
+        "model": "EOS 1500D"
+      },
+      "dispatchTime": "1 Day",
+      "price": 42000,
+      "productImage": "https://m.media-amazon.com/images/I/914hFeTU2-L._SX522_.jpg"
+    },
+    {
+      "id": 2,
+      "productName": "MacBook Air",
+      "productDetails": {
+        "brand": "Apple",
+        "model": "MacBook Air"
+      },
+      "dispatchTime": "2 Day",
+      "price": 80990,
+      "productImage": "https://m.media-amazon.com/images/I/316ArzLeJ2L._SY445_SX342_QL70_FMwebp_.jpg"
+    },
+    {
+      "id": 3,
+      "productName": "Samsung Galaxy Tab A8 26.69 cm (10.5 inch)",
+      "productDetails": {
+        "brand": "Samsung",
+        "model": "SM-X200"
+      },
+      "dispatchTime": "3 Day",
+      "price": 16999,
+      "productImage": "https://m.media-amazon.com/images/I/418jsYxG-nL._SY300_SX300_QL70_FMwebp_.jpg"
+    },
+    {
+      "id": 4,
+      "productName": "The Little Ones Remote Control Robot ",
+      "productDetails": {
+        "brand": "The Little Ones",
+        "model": "robo-15"
+      },
+      "dispatchTime": "4 Day",
+      "price": 2089,
+      "productImage": "https://m.media-amazon.com/images/I/51+ZZW652JL._SY300_SX300_.jpg"
+    },
+    {
+      "id": 5,
+      "productName": "TIMEX Analog Black Dial Men's Watch",
+      "productDetails": {
+        "brand": "TIMEX",
+        "model": "TWHG3"
+      },
+      "dispatchTime": "5 Day",
+      "price": 2517,
+      "productImage": "https://m.media-amazon.com/images/I/5115ftkzWrL._UX522_.jpg"
+    },
+    {
+      "id": 6,
+      "productName": "Diesel Analog Black Dial (Big dial) Men's Watch",
+      "productDetails": {
+        "brand": "Diesel",
+        "model": "DZ7395"
+      },
+      "dispatchTime": "6 Day",
+      "price": 33995,
+      "productImage": "https://m.media-amazon.com/images/I/91sHbYZvz+L._UX522_.jpg"
+    }
+  ],
+  "orders": [
+    {
+      "productName": "Canon SLR Camera (Black)",
+      "price": 42000,
+      "id": 1
+    },
+    {
+      "productName": "TIMEX Analog Black Dial Men's Watch",
+      "price": 2517,
+      "id": 2
+    },
+    {
+      "productName": "Diesel Analog Black Dial (Big dial) Men's Watch",
+      "price": 33995,
+      "id": 3
+    }
+  ],
+  "totalPrice": [
+    {
+      "totalPrice": 42000,
+      "id": 1
+    },
+    {
+      "totalPrice": 36512,
+      "id": 2
+    }
+  ]
+}
