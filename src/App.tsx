@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useFetch from "./components/custom-hooks/useFetch";
 import "./App.css";
+import { BASE_URL } from "./api";
 import Header from "./components/Header";
 import SideBarMenu from "./components/SideBarMenu";
 import SearchFilter from "./components/ProductSearchFilter";
@@ -8,7 +9,7 @@ import Products from "./components/Products";
 import AddToTable from "./components/OrderTable";
 
 export default function App() {
-  const { data, isPending, error } = useFetch("http://localhost:3000/products");
+  const { data, isPending, error } = useFetch(`${BASE_URL}/products`);
 
   const [isHamburgerClicked, setIsHamburgerClicked] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");

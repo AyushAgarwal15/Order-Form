@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { BASE_URL } from "../api";
 import OrderedProduct from "./OrderedProduct";
 
 interface ProductDetails {
@@ -50,7 +51,7 @@ function OrderTable({ orderId, data, handleDeleteOrder }: OrderTableProps) {
       }));
 
       const orderPromises = ordersData?.map((order) =>
-        axios.post("http://localhost:3000/orders", order)
+        axios.post(`${BASE_URL}/orders`, order)
       );
 
       const responses = await Promise.all(orderPromises || []);
@@ -58,7 +59,7 @@ function OrderTable({ orderId, data, handleDeleteOrder }: OrderTableProps) {
       console.log(responses);
 
       if (responses.every((response) => response.status === 201)) {
-        await axios.post("http://localhost:3000/totalPrice", {
+        await axios.post(`${BASE_URL}/totalPrice`, {
           totalPrice: totalPrice,
         });
 
