@@ -61,12 +61,14 @@ function OrderTable({ orderId, data, handleDeleteOrder }: OrderTableProps) {
         await axios.post("http://localhost:3000/totalPrice", {
           totalPrice: totalPrice,
         });
+
         alert("Orders submitted successfully!");
       } else {
         alert("Failed to submit one or more orders.");
       }
     } catch (error) {
       alert("An error occurred while submitting the order data.");
+
       console.error(error);
     } finally {
       setIsSubmitting(false);
