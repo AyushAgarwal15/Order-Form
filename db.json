@@ -8,8 +8,7 @@
         "model": "EOS 1500D"
       },
       "dispatchTime": "1 Day",
-      "price": 42000,
-      "productImage": "https://m.media-amazon.com/images/I/914hFeTU2-L._SX522_.jpg"
+      "price": 42000
     },
     {
       "id": 2,
@@ -19,8 +18,7 @@
         "model": "MacBook Air"
       },
       "dispatchTime": "2 Day",
-      "price": 80990,
-      "productImage": "https://m.media-amazon.com/images/I/316ArzLeJ2L._SY445_SX342_QL70_FMwebp_.jpg"
+      "price": 80990
     },
     {
       "id": 3,
@@ -30,8 +28,7 @@
         "model": "SM-X200"
       },
       "dispatchTime": "3 Day",
-      "price": 16999,
-      "productImage": "https://m.media-amazon.com/images/I/418jsYxG-nL._SY300_SX300_QL70_FMwebp_.jpg"
+      "price": 16999
     },
     {
       "id": 4,
@@ -41,8 +38,7 @@
         "model": "robo-15"
       },
       "dispatchTime": "4 Day",
-      "price": 2089,
-      "productImage": "https://m.media-amazon.com/images/I/51+ZZW652JL._SY300_SX300_.jpg"
+      "price": 2089
     },
     {
       "id": 5,
@@ -52,8 +48,7 @@
         "model": "TWHG3"
       },
       "dispatchTime": "5 Day",
-      "price": 2517,
-      "productImage": "https://m.media-amazon.com/images/I/5115ftkzWrL._UX522_.jpg"
+      "price": 2517
     },
     {
       "id": 6,
@@ -63,10 +58,23 @@
         "model": "DZ7395"
       },
       "dispatchTime": "6 Day",
-      "price": 33995,
-      "productImage": "https://m.media-amazon.com/images/I/91sHbYZvz+L._UX522_.jpg"
+      "price": 33995
     }
   ],
-  "orders": [],
-  "totalPrice": []
+  "orders": [
+    {
+      "products": [
+        {
+          "productName": "Samsung Galaxy Tab A8 26.69 cm (10.5 inch)",
+          "price": 16999
+        },
+        {
+          "productName": "TIMEX Analog Black Dial Men's Watch",
+          "price": 2517
+        }
+      ],
+      "totalPrice": 19516,
+      "id": 1
+    }
+  ]
 }

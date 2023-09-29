@@ -1,3 +1,93 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.header {
+  @apply bg-black w-full flex justify-between 
+  items-center p-7;
+}
+
+.logo {
+  @apply text-white text-3xl lg:text-4xl font-bold mt-0 hover:cursor-pointer;
+}
+
+.dark-font {
+  @apply text-red-500;
+}
+
+.user {
+  @apply border-2 border-white rounded-full w-20 text-white text-center text-xl font-semibold mt-0 lg:text-2xl lg:w-40;
+}
+
+.sidebar-container {
+  @apply border-t-2 border-red-400 w-full
+    bg-black text-white text-center py-10 lg:w-80 lg:px-4 lg:h-screen lg:fixed;
+}
+
+.sidebar-greet-user {
+  @apply text-3xl md:text-4xl lg:text-5xl mb-4 text-center;
+}
+
+.sidebar-welcome-user {
+  @apply text-xl md:text-2xl lg:text-3xl text-center;
+}
+
+.input-table-container1 {
+  @apply w-full flex justify-center mt-10;
+}
+
+.input-table-container2 {
+  @apply flex flex-col items-center justify-center max-w-full;
+}
+
+.search-input {
+  @apply w-[90%] text-2xl text-gray-500 border-2 border-black px-4 py-2 rounded-lg;
+}
+
+.product-suggestion-list {
+  @apply bg-slate-50 py-3 w-[90%] mx-auto rounded-lg mt-4;
+}
+
+.product-suggestion-list-item {
+  @apply w-[90%] px-2 py-2 hover:cursor-pointer hover:bg-slate-100 border-b-2 border-slate-200 text-lg last:border-none;
+}
+
+.table-container {
+  @apply flex flex-col items-center justify-center;
+}
+
+table {
+  @apply table-auto w-5/6 mx-10 my-12 text-center border-2 border-black;
+}
+
+thead {
+  @apply bg-gray-200 text-lg md:text-xl lg:text-2xl font-bold;
+}
+
+tr {
+  @apply border-2 border-black;
+}
+
+th {
+  @apply border-r-2 border-black p-2 w-36;
+}
+
+tbody {
+  @apply text-lg lg:text-xl text-gray-800;
+}
+
+td {
+  @apply border-r-2 border-black p-2;
+}
+
+.total-price-row {
+  @apply bg-gray-100 font-bold;
+}
+
+.total-price-row-data {
+  @apply text-xl md:text-2xl text-black  p-4 font-semibold;
+}
+
+.submit-button {
+  @apply bg-black text-white text-center text-2xl px-8 py-3 rounded-full hover:cursor-pointer;
+}

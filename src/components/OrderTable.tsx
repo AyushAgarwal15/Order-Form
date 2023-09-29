@@ -1,8 +1,9 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { BASE_URL } from "../api";
-import OrderedProduct from "./OrderedProduct";
+import { useState, useEffect, useMemo } from "react";
+import { useTable, useSortBy, Column } from "react-table";
+import { useMutation } from "react-query";
+import { addOrder } from "../api/productsApi";
 
+// Define your interfaces
 interface ProductDetails {
   brand: string;
   model: string;
@@ -17,120 +18,175 @@ interface Product {
 }
 
 interface OrderTableProps {
-  orderId: number[];
-  data: Product[] | null;
-  quantity: number;
-  handleDeleteOrder: (id: number) => void;
+  selectedItems: Product[] | null;
+  handleDeleteSelectedItem: (id: number) => void;
+  resetSelectedItems: () => void;
 }
 
-function OrderTable({ orderId, data, handleDeleteOrder }: OrderTableProps) {
-  const filteredProducts = data?.filter((product) =>
-    orderId.includes(product.id)
-  );
+interface OrderSummary {
+  products: {
+    productName: string;
+    price: number;
+  }[];
+  totalPrice: number;
+}
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+function OrderTable({
+  selectedItems,
+  handleDeleteSelectedItem,
+  resetSelectedItems,
+}: OrderTableProps) {
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
 
+  // Function to handle OrderTable Submit (post data to json server)
+  const handleSubmit = () => {
+    if (selectedItems) {
+      // Calculate the total price
+      const total = selectedItems.reduce(
+        (acc, product) => acc + product.price,
+        0
+      );
+
+      // Create an order summary object
+      const orderSummary: OrderSummary = {
+        products: selectedItems.map((product) => ({
+          productName: product.productName,
+          price: product.price,
+        })),
+        totalPrice: total,
+      };
+
+      // Call the mutation function to add the order
+      addOrderMutation.mutate(orderSummary);
+    }
+  };
+
+  const addOrderMutation = useMutation(
+    (newOrder: OrderSummary) => addOrder(newOrder),
+    {
+      onSuccess: (response) => {
+        // Handle success
+        alert("Orders submitted successfully");
+        console.log("Order submitted successfully:", response);
+        resetSelectedItems();
+      },
+      onError: (error) => {
+        // Handle error
+        alert("Error submitting order");
+        console.error("Error submitting order:", error);
+      },
+    }
+  );
+
   useEffect(() => {
-    if (filteredProducts) {
-      const total = filteredProducts.reduce(
+    if (selectedItems) {
+      const total = selectedItems.reduce(
         (acc, product) => acc + product.price,
         0
       );
       setTotalPrice(total);
     }
-  }, [filteredProducts]);
+  }, [selectedItems]);
 
-  const handleSubmit = async () => {
-    try {
-      setIsSubmitting(true);
-      // Formating data into the desired structure
-      const ordersData = filteredProducts?.map((product) => ({
-        productName: product.productName,
-        price: product.price,
-      }));
+  const columns: Column<Product>[] = useMemo(
+    () => [
+      {
+        Header: "Name",
+        accessor: "productName",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Details",
+        accessor: (row: Product) => (
+          <ul>
+            <li>Brand: {row.productDetails.brand}</li>
+            <li>Model: {row.productDetails.model}</li>
+          </ul>
+        ),
+      },
+      {
+        Header: "Time",
+        accessor: "dispatchTime",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Price",
+        accessor: "price",
+        sortType: "basic",
+      },
+      {
+        Header: "Del",
+        accessor: "id",
+        Cell: ({ value }: { value: number }) => (
+          <span
+            className="text-red-700 text-3xl font-bold hover:cursor-pointer"
+            onClick={() => handleDeleteSelectedItem(value)}
+          >
+            X
+          </span>
+        ),
+      },
+    ],
+    [handleDeleteSelectedItem]
+  );
 
-      const orderPromises = ordersData?.map((order) =>
-        axios.post(`${BASE_URL}/orders`, order)
-      );
-
-      const responses = await Promise.all(orderPromises || []);
-
-      console.log(responses);
-
-      if (responses.every((response) => response.status === 201)) {
-        await axios.post(`${BASE_URL}/totalPrice`, {
-          totalPrice: totalPrice,
-        });
-
-        alert("Orders submitted successfully!");
-      } else {
-        alert("Failed to submit one or more orders.");
-      }
-    } catch (error) {
-      alert("An error occurred while submitting the order data.");
-
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const data = useMemo(() => selectedItems || [], [selectedItems]);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useSortBy
+    );
 
   return (
-    orderId.length && (
-      <>
-        {" "}
-        <table className="table-fixed w-5/6 mx-auto my-8 text-center border-2 border-black">
-          <thead className="bg-gray-200 text-lg md:text-xl lg:text-2xl font-bold">
-            <tr className="border-2 border-black">
-              <th className="border-r-2 border-black p-2 w-34">Name</th>
-              <th className="border-r-2 border-black p-2 w-34">Details</th>
-              <th className="border-r-2 border-black p-2 w-34">Time</th>
-              <th className="border-r-2 border-black p-2 w-34">Price</th>
-              <th className="p-2 w-34">Del</th>
+    <div className="table-container">
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                </th>
+              ))}
             </tr>
-          </thead>
-          <tbody className="text-md md:text-lg lg:text-xl text-gray-800 ">
-            {filteredProducts?.map((product) => (
-              <OrderedProduct
-                key={product.id}
-                productName={product.productName}
-                productDetails={product.productDetails}
-                dispatchTime={product.dispatchTime}
-                price={product.price}
-                productId={product.id}
-                handleDeleteOrder={handleDeleteOrder}
-              />
-            ))}
-            <tr className="bg-gray-100 font-bold">
-              <td colSpan={3} className="text-xl md:text-2xl text-black  p-4">
-                Total Price =
-              </td>
-              <td colSpan={2} className="text-xl p-4">
-                {totalPrice !== null && (
-                  <p className="text-xl font-semibold text-center">
-                    {totalPrice}
-                  </p>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        {isSubmitting ? (
-          <p className="text-2xl font-bold text-center pb-10">
-            Submitting orders...
-          </p>
-        ) : (
-          <button
-            onClick={() => handleSubmit()}
-            className="bg-black px-14 py-4 rounded-full text-white text-2xl
-           font-bold w-60 text-center block mx-auto my-6 hover:cursor-pointer transform transition-transform hover:scale-110"
-          >
-            Submit
-          </button>
-        )}
-      </>
-    )
+          ))}
+        </thead>
+
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                ))}
+              </tr>
+            );
+          })}
+          <tr className="total-price-row">
+            <td colSpan={2} className="total-price-row-data">
+              Total Price =
+            </td>
+            <td colSpan={3} className="total-price-row-data">
+              {totalPrice !== null && <p>{totalPrice}</p>}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button className="submit-button" onClick={handleSubmit}>
+        Submit
+      </button>
+    </div>
   );
 }
 

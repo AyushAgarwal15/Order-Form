@@ -1,36 +1,39 @@
-interface headerProps {
-  isHamburgerClicked: boolean;
-  handleMenu: () => void;
-}
-function Header({ isHamburgerClicked, handleMenu }: headerProps) {
+import { useState } from "react";
+import SideBarMenu from "./SideBarMenu";
+
+function Header() {
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState<boolean>(false);
+
+  function handleMenu() {
+    setIsHamburgerClicked((prev) => !prev);
+  }
+
   return (
-    <header className="bg-black w-full flex justify-between items-center mt-0 p-7 ">
-      {isHamburgerClicked ? (
-        <img
-          src="/icons-png/close-menu.png"
-          alt="menu-icon"
-          className="hover:cursor-pointer"
-          onClick={() => handleMenu()}
-        />
-      ) : (
-        <img
-          src="/icons-png/open-menu.png"
-          alt="menu-icon"
-          className="w-10 hover:cursor-pointer"
-          onClick={() => handleMenu()}
-        />
-      )}
-      <h1
-        className="text-white text-3xl lg:text-4xl font-bold mt-0 hover:cursor-pointer"
-        onClick={() => window.location.reload()}
-      >
-        <span className="text-red-500">S</span>hop{" "}
-        <span className="text-red-500">Now</span>
-      </h1>
-      <div className="border-2 border-white rounded-full w-20 text-white text-center text-xl font-semibold mt-0 lg:text-2xl lg:w-40">
-        User
-      </div>
-    </header>
+    <>
+      <header className="header">
+        {isHamburgerClicked ? (
+          <img
+            src="/icons-png/close-menu.png"
+            alt="menu-icon"
+            className="hover:cursor-pointer"
+            onClick={() => handleMenu()}
+          />
+        ) : (
+          <img
+            src="/icons-png/open-menu.png"
+            alt="menu-icon"
+            className="w-10 hover:cursor-pointer"
+            onClick={() => handleMenu()}
+          />
+        )}
+        <h1 className="logo" onClick={() => window.location.reload()}>
+          <span className="dark-font">S</span>hop{" "}
+          <span className="dark-font">Now</span>
+        </h1>
+        <div className="user">User</div>
+      </header>
+      {isHamburgerClicked && <SideBarMenu />}
+    </>
   );
 }
 
