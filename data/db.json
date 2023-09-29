@@ -61,5 +61,20 @@
       "price": 33995
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "products": [
+        {
+          "productName": "Canon SLR Camera (Black)",
+          "price": 42000
+        },
+        {
+          "productName": "MacBook Air",
+          "price": 80990
+        }
+      ],
+      "totalPrice": 122990,
+      "id": 1
+    }
+  ]
 }

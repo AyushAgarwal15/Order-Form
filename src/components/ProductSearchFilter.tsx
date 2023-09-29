@@ -34,7 +34,7 @@ function ProductSearchFilter() {
     setSelectedItems([]);
   };
 
-  // Use React Query to fetch products
+  // Using React Query to fetch products
   const {
     isLoading,
     isError,

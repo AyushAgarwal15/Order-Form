@@ -3,7 +3,6 @@ import { useTable, useSortBy, Column } from "react-table";
 import { useMutation } from "react-query";
 import { addOrder } from "../api/productsApi";
 
-// Define your interfaces
 interface ProductDetails {
   brand: string;
   model: string;
