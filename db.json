@@ -61,20 +61,5 @@
       "price": 33995
     }
   ],
-  "orders": [
-    {
-      "products": [
-        {
-          "productName": "Samsung Galaxy Tab A8 26.69 cm (10.5 inch)",
-          "price": 16999
-        },
-        {
-          "productName": "TIMEX Analog Black Dial Men's Watch",
-          "price": 2517
-        }
-      ],
-      "totalPrice": 19516,
-      "id": 1
-    }
-  ]
+  "orders": []
 }
