@@ -30,7 +30,7 @@ function Header() {
           <span className="dark-font">S</span>hop{" "}
           <span className="dark-font">Now</span>
         </h1>
-        <div className="user">User</div>
+        <div className="user">user</div>
       </header>
       {isHamburgerClicked && <SideBarMenu />}
     </>
